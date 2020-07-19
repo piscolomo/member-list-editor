@@ -2,6 +2,7 @@ import React from 'react';
 import { default as usersData } from './members.json';
 import UserItem from './UserItem';
 import UserListAvailable from './UserListAvailable';
+import UserListAssigned from './UserListAssigned';
 
 class MemberListEditor extends React.Component{
     constructor(props){
@@ -84,18 +85,6 @@ class MemberListEditor extends React.Component{
     }
 
     render(){
-        const listAssignedUsers = () => {
-            const userItems = this.state.usersAssigned.map((user)=>{
-                return <UserItem key={user["_id"]} user={user} active={this.state.usersAssignedSelected.includes(user)} onSelectUpdate={this.onSelectAssignedUpdate.bind(this)} />
-            });
-
-            return (<div>
-                <span>{this.state.usersAssigned.length} Users Assigned</span>
-                <ul id="users-assigned">{userItems}</ul>
-                <button onClick={this.removeUsers.bind(this)}>REMOVE</button>
-                </div>);
-        }
-
         const memberList = () => {
             const list = this.state.usersAssigned.map((user)=>{
                 return <li key={user["_id"]}>{user.firstName} {user.lastName}</li>
@@ -115,10 +104,12 @@ class MemberListEditor extends React.Component{
                     {this.state.editMode && <button onClick={this.handleDone.bind(this)}>DONE</button>}
                 </div>
                 {!this.state.editMode && memberList()}
-                <div id="container">
-                    {this.state.editMode && <UserListAvailable users={this.state.availableUsers} selectedUsers={this.state.usersSelected} onSelectUpdate={this.onSelectUpdate.bind(this)} addUsers={this.addUsers.bind(this)} />}
-                    {this.state.editMode && listAssignedUsers()}
-                </div>
+                {this.state.editMode &&
+                    <div id="container">
+                        <UserListAvailable users={this.state.availableUsers} selectedUsers={this.state.usersSelected} onSelectUpdate={this.onSelectUpdate.bind(this)} addUsers={this.addUsers.bind(this)} />
+                        <UserListAssigned users={this.state.usersAssigned} selectedUsers={this.state.usersAssignedSelected} onSelectUpdate={this.onSelectAssignedUpdate.bind(this)} removeUsers={this.removeUsers.bind(this)} />
+                    </div>
+                }
             </div>
         );
     }
