@@ -22,7 +22,7 @@ class MemberListEditor extends React.Component{
     }
 
     handleCancel(){
-        this.setState({editMode: false});
+        this.setState({editMode: false, usersSelected: [], usersAssigned: []});
     }
 
     handleSave(){
@@ -30,16 +30,36 @@ class MemberListEditor extends React.Component{
     }
 
     onSelectUpdate(user){
-        console.log(this);
-        // this.setState((prevState)=>{
+        const isUserSelected = this.state.usersSelected.includes(user);
+        if (isUserSelected){
+            console.log("Unselecting user...");
+            this.setState((prevState)=>{
+                return {
+                    usersSelected: prevState.usersSelected.filter(userSelected => userSelected["_id"] != user["_id"])
+                }
+            })
+        }else{
+            console.log("Selecting user...");
+            this.setState((prevState)=>{
+                return {
+                    usersSelected: prevState.usersSelected.concat(user)
+                }
+            })
+        }
+    }
 
-        // });
+    addUsers(){
+        this.setState((prevState)=>{
+            return {
+                usersAssigned: prevState.usersAssigned.concat(prevState.usersSelected)
+            }
+        })
     }
 
     render(){
         const listUsers = () => {
             const userItems = this.state.users.map((user)=>{
-                return <UserItem key={user["_id"]} user={user} onSelectUpdate={this.onSelectUpdate} />
+                return <UserItem key={user["_id"]} user={user} onSelectUpdate={this.onSelectUpdate.bind(this)} />
             });
 
             return <ul id="users-available">{userItems}</ul>;
@@ -52,6 +72,7 @@ class MemberListEditor extends React.Component{
                 {this.state.editMode && <button onClick={this.handleSave.bind(this)}>SAVE</button>}
                 {!this.state.editMode && <p>No users in this list</p>}
                 {this.state.editMode && listUsers()}
+                {this.state.editMode && <button onClick={this.addUsers.bind(this)}>ADD</button>}
             </div>
         );
     }
