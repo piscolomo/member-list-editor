@@ -13,7 +13,8 @@ class MemberListEditor extends React.Component{
             usersAssigned: [],
             usersAssignedSelected: [],
             editMode: false,
-            isAllAvailableUsersSelected: false
+            isAllAvailableUsersSelected: false,
+            isAllAssignedUsersSelected: false
         };
     }
 
@@ -81,7 +82,8 @@ class MemberListEditor extends React.Component{
             return {
                 availableUsers: prevState.availableUsers.concat(prevState.usersAssignedSelected),
                 usersAssignedSelected: [],
-                usersAssigned: updatedAssignedUsers
+                usersAssigned: updatedAssignedUsers,
+                isAllAssignedUsersSelected: false
             }
         })
     }
@@ -90,6 +92,13 @@ class MemberListEditor extends React.Component{
         this.setState((prevState)=>({
                 isAllAvailableUsersSelected: !prevState.isAllAvailableUsersSelected,
                 usersSelected: prevState.isAllAvailableUsersSelected ? [] : prevState.availableUsers
+            }));
+    }
+
+    onChangeAssignedListCheckbox(){
+        this.setState((prevState)=>({
+                isAllAssignedUsersSelected: !prevState.isAllAssignedUsersSelected,
+                usersAssignedSelected: prevState.isAllAssignedUsersSelected ? [] : prevState.usersAssigned
             }));
     }
 
@@ -124,8 +133,10 @@ class MemberListEditor extends React.Component{
 
                         <UserListAssigned users={this.state.usersAssigned} 
                             selectedUsers={this.state.usersAssignedSelected} 
+                            selectAllUsers={this.state.isAllAssignedUsersSelected}
                             onSelectUpdate={this.onSelectAssignedUpdate.bind(this)} 
-                            removeUsers={this.removeUsers.bind(this)} />
+                            removeUsers={this.removeUsers.bind(this)} 
+                            onChangeListCheckbox={this.onChangeAssignedListCheckbox.bind(this)}/>
                     </div>
                 }
             </div>

@@ -7,7 +7,7 @@ class UserListAssigned extends React.Component{
     }
 
     render(){
-        const { users, selectedUsers, onSelectUpdate, removeUsers } = this.props;
+        const { users, selectedUsers, selectAllUsers, onSelectUpdate, removeUsers, onChangeListCheckbox } = this.props;
         
         const userItems = users.map((user)=>{
             return <UserItem key={user["_id"]} user={user} active={selectedUsers.includes(user)} onSelectUpdate={onSelectUpdate} />
@@ -15,6 +15,7 @@ class UserListAssigned extends React.Component{
 
         return (<div>
             <span>{users.length} Users Assigned</span>
+            <input type="checkbox" checked={selectAllUsers} onChange={onChangeListCheckbox} />
             <ul id="users-assigned">{userItems}</ul>
             <button onClick={removeUsers}>REMOVE</button>
         </div>);
