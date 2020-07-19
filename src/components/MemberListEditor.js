@@ -32,7 +32,7 @@ class MemberListEditor extends React.Component{
                 return <li key={user["_id"]}>{user.firstName} {user.lastName}</li>
             });
 
-            return <ul>{userItems}</ul>;
+            return <ul id="users-available">{userItems}</ul>;
         }
         return (
             <div>

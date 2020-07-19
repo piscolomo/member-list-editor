@@ -1,3 +1,13 @@
+# member-list-editor
+Member List Editor React Component
+
+
+# Features
+- Eficcient ways to navigate the list
+- Add and remove multiple users(Select)
+- Add and remove all the users (A select to select all of them)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
