@@ -7,7 +7,7 @@ class UserListAvailable extends React.Component{
     }
 
     render(){
-        const { users, selectedUsers, onSelectUpdate, addUsers } = this.props;
+        const { users, selectedUsers, selectAllUsers, onSelectUpdate, addUsers, onChangeListCheckbox } = this.props;
         
         const userItems = users.map((user)=>{
             return <UserItem key={user["_id"]} user={user} active={selectedUsers.includes(user)} onSelectUpdate={onSelectUpdate} />
@@ -17,6 +17,7 @@ class UserListAvailable extends React.Component{
         return (<div>
             <span>{selectedUsers.length} Users Selected</span>
             <span className="count">{users.length}</span>
+            <input type="checkbox" checked={selectAllUsers} onChange={onChangeListCheckbox} />
             <ul id="users-available">{userItems}</ul>
             <button onClick={addUsers}>ADD</button>
         </div>);

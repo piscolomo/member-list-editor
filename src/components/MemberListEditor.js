@@ -13,6 +13,7 @@ class MemberListEditor extends React.Component{
             usersAssigned: [],
             usersAssignedSelected: [],
             editMode: false,
+            isAllAvailableUsersSelected: false
         };
     }
 
@@ -69,6 +70,7 @@ class MemberListEditor extends React.Component{
                 availableUsers: updatedAvailableUsers,
                 usersSelected: [],
                 usersAssigned: prevState.usersAssigned.concat(prevState.usersSelected),
+                isAllAvailableUsersSelected: false
             }
         })
     }
@@ -82,6 +84,13 @@ class MemberListEditor extends React.Component{
                 usersAssigned: updatedAssignedUsers
             }
         })
+    }
+
+    onChangeListCheckbox(){
+        this.setState((prevState)=>({
+                isAllAvailableUsersSelected: !prevState.isAllAvailableUsersSelected,
+                usersSelected: prevState.isAllAvailableUsersSelected ? [] : prevState.availableUsers
+            }));
     }
 
     render(){
@@ -106,8 +115,17 @@ class MemberListEditor extends React.Component{
                 {!this.state.editMode && memberList()}
                 {this.state.editMode &&
                     <div id="container">
-                        <UserListAvailable users={this.state.availableUsers} selectedUsers={this.state.usersSelected} onSelectUpdate={this.onSelectUpdate.bind(this)} addUsers={this.addUsers.bind(this)} />
-                        <UserListAssigned users={this.state.usersAssigned} selectedUsers={this.state.usersAssignedSelected} onSelectUpdate={this.onSelectAssignedUpdate.bind(this)} removeUsers={this.removeUsers.bind(this)} />
+                        <UserListAvailable users={this.state.availableUsers} 
+                            selectedUsers={this.state.usersSelected} 
+                            selectAllUsers={this.state.isAllAvailableUsersSelected}
+                            onSelectUpdate={this.onSelectUpdate.bind(this)} 
+                            addUsers={this.addUsers.bind(this)} 
+                            onChangeListCheckbox={this.onChangeListCheckbox.bind(this)}/>
+
+                        <UserListAssigned users={this.state.usersAssigned} 
+                            selectedUsers={this.state.usersAssignedSelected} 
+                            onSelectUpdate={this.onSelectAssignedUpdate.bind(this)} 
+                            removeUsers={this.removeUsers.bind(this)} />
                     </div>
                 }
             </div>
