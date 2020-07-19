@@ -79,35 +79,45 @@ ul{
 
 #container{
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 #container > div{
-  flex-grow: 1;
+  flex: 1 1 45%;
+  padding: 0 12px;
 }
 
 #users-available{
   height: 200px;
   display: block;
   overflow: scroll;
-  border: 1px solid #000;
+  background: #rgba(242,245,245,0.8);
+  border-top: 1px solid #bdc3c7;
+  border-left: 1px solid #bdc3c7;
+  border-right: 1px solid #bdc3c7;
+  border-radius: 10px;
 }
 
 
 #users-available li{
   padding: 10px 0;
   cursor: pointer;
+  border-bottom: 1px solid #bdc3c7;
 }
 
 li.selected{
-  background: yellow;
+  background:#c2dbff;
 }
 
 #users-assigned{
   height: 200px;
   display: block;
   overflow: scroll;
-  border: 1px solid #000;
+  border: 1px solid #bdc3c7;
+  background: #ecf0f1;
+  border-radius: 10px;
 }
 
 #users-assigned li{

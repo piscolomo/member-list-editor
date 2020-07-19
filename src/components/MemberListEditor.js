@@ -9,6 +9,7 @@ class MemberListEditor extends React.Component{
         super(props);
         this.state = {
             availableUsers: usersData,
+            filtered: [],
             usersSelected: [],
             usersAssigned: [],
             usersAssignedSelected: [],
@@ -16,6 +17,10 @@ class MemberListEditor extends React.Component{
             isAllAvailableUsersSelected: false,
             isAllAssignedUsersSelected: false
         };
+    }
+
+    setSearchInputRef(input) {
+        this.searchInput = input;
     }
 
     handleEdit(){
@@ -69,11 +74,13 @@ class MemberListEditor extends React.Component{
             const updatedAvailableUsers = prevState.availableUsers.filter(availableUser => !prevState.usersSelected.includes(availableUser));
             return {
                 availableUsers: updatedAvailableUsers,
+                filtered: [],
                 usersSelected: [],
                 usersAssigned: prevState.usersAssigned.concat(prevState.usersSelected),
                 isAllAvailableUsersSelected: false
             }
-        })
+        });
+        this.searchInput.value = "";
     }
     
     removeUsers(){
@@ -102,6 +109,21 @@ class MemberListEditor extends React.Component{
             }));
     }
 
+    searchUsers(e) {
+        if (e.target.value === ""){
+            this.setState((prevState)=>({
+                filtered: []
+            }));
+        }else{
+            const target = e.target.value.toLowerCase();
+            this.setState((prevState)=>({
+                filtered: prevState.availableUsers.filter(user =>{
+                    return `${user.firstName} ${user.lastName}`.toLowerCase().includes(target)
+                })
+            }));
+        }
+    }
+
     render(){
         const memberList = () => {
             const list = this.state.usersAssigned.map((user)=>{
@@ -124,12 +146,15 @@ class MemberListEditor extends React.Component{
                 {!this.state.editMode && memberList()}
                 {this.state.editMode &&
                     <div id="container">
-                        <UserListAvailable users={this.state.availableUsers} 
+                        <UserListAvailable users={this.state.filtered.length > 0 ? this.state.filtered: this.state.availableUsers} 
                             selectedUsers={this.state.usersSelected} 
                             selectAllUsers={this.state.isAllAvailableUsersSelected}
                             onSelectUpdate={this.onSelectUpdate.bind(this)} 
                             addUsers={this.addUsers.bind(this)} 
-                            onChangeListCheckbox={this.onChangeListCheckbox.bind(this)}/>
+                            onChangeListCheckbox={this.onChangeListCheckbox.bind(this)}
+                            onSearch={this.searchUsers.bind(this)}
+                            setRef={this.setSearchInputRef.bind(this)}
+                            />
 
                         <UserListAssigned users={this.state.usersAssigned} 
                             selectedUsers={this.state.usersAssignedSelected} 
