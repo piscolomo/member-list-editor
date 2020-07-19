@@ -59,7 +59,7 @@ class MemberListEditor extends React.Component{
     render(){
         const listUsers = () => {
             const userItems = this.state.users.map((user)=>{
-                return <UserItem key={user["_id"]} user={user} onSelectUpdate={this.onSelectUpdate.bind(this)} />
+                return <UserItem key={user["_id"]} user={user} active={this.state.usersSelected.includes(user)} onSelectUpdate={this.onSelectUpdate.bind(this)} />
             });
 
             return <ul id="users-available">{userItems}</ul>;
