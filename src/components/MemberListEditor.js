@@ -45,6 +45,26 @@ class MemberListEditor extends React.Component{
         }
     }
 
+    onSelectAssignedUpdate(user){
+        console.log("holi");
+        const isUserSelected = this.state.usersAssignedSelected.includes(user);
+        if (isUserSelected){
+            console.log("Unselecting user...");
+            this.setState((prevState)=>{
+                return {
+                    usersAssignedSelected: prevState.usersAssignedSelected.filter(userSelected => userSelected["_id"] != user["_id"])
+                }
+            })
+        }else{
+            console.log("Selecting user...");
+            this.setState((prevState)=>{
+                return {
+                    usersAssignedSelected: prevState.usersAssignedSelected.concat(user)
+                }
+            })
+        }
+    }
+
     addUsers(){
         this.setState((prevState)=>{
             const updatedAvailableUsers = prevState.availableUsers.filter(availableUser => !prevState.usersSelected.includes(availableUser));
@@ -57,7 +77,14 @@ class MemberListEditor extends React.Component{
     }
     
     removeUsers(){
-
+        this.setState((prevState)=>{
+            const updatedAssignedUsers = prevState.usersAssigned.filter(assignedUser => !prevState.usersAssignedSelected.includes(assignedUser));
+            return {
+                availableUsers: prevState.availableUsers.concat(prevState.usersAssignedSelected),
+                usersAssignedSelected: [],
+                usersAssigned: updatedAssignedUsers
+            }
+        })
     }
 
     render(){
@@ -75,9 +102,12 @@ class MemberListEditor extends React.Component{
         }
 
         const listAssignedUsers = () => {
+            // const userItems = this.state.usersAssigned.map((user)=>{
+            //     return <li key={user["_id"]}>{user.firstName} {user.lastName}</li>
+            // });
+
             const userItems = this.state.usersAssigned.map((user)=>{
-                //return <UserItem key={user["_id"]} user={user} active={this.state.usersAssignedSelected.includes(user)} onSelectUpdate={this.onSelectUpdate.bind(this)} />
-                return <li key={user["_id"]}>{user.firstName} {user.lastName}</li>
+                return <UserItem key={user["_id"]} user={user} active={this.state.usersAssignedSelected.includes(user)} onSelectUpdate={this.onSelectAssignedUpdate.bind(this)} />
             });
 
             return (<div>
