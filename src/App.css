@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  width: 80%;
+  margin: 50px auto;
+  max-width: 1000px;
 }
 
 .App-logo {
@@ -37,6 +40,28 @@
   }
 }
 
+#member-list-component{
+  border: 1px solid #ccc;
+  padding: 30px;
+  position: relative;
+  padding-top: 100px;
+}
+
+.header{
+  background: skyblue;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.header button{
+  float: right;
+  margin-right: 20px;
+}
+
 span.count{
   border-radius: 28px;
   background: lightblue;
@@ -52,9 +77,16 @@ ul{
   padding-left: 0;
 }
 
+#container{
+  display: flex;
+  flex-direction: row;
+}
+
+#container > div{
+  flex-grow: 1;
+}
+
 #users-available{
-  width: 40%;
-  float: left;
   height: 200px;
   display: block;
   overflow: scroll;
@@ -69,4 +101,16 @@ ul{
 
 li.selected{
   background: yellow;
+}
+
+#users-assigned{
+  height: 200px;
+  display: block;
+  overflow: scroll;
+  border: 1px solid #000;
+}
+
+#users-assigned li{
+  padding: 10px 0;
+  cursor: pointer;
 }

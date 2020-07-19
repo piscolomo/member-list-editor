@@ -55,6 +55,10 @@ class MemberListEditor extends React.Component{
             }
         })
     }
+    
+    removeUsers(){
+
+    }
 
     render(){
         const listUsers = () => {
@@ -66,6 +70,7 @@ class MemberListEditor extends React.Component{
                     <span>{this.state.usersSelected.length} Users Selected</span>
                     <span className="count">{this.state.availableUsers.length}</span>
                     <ul id="users-available">{userItems}</ul>
+                    <button onClick={this.addUsers.bind(this)}>ADD</button>
                 </div>);
         }
 
@@ -78,6 +83,7 @@ class MemberListEditor extends React.Component{
             return (<div>
                 <span>{this.state.usersAssigned.length} Users Assigned</span>
                 <ul id="users-assigned">{userItems}</ul>
+                <button onClick={this.removeUsers.bind(this)}>REMOVE</button>
                 </div>);
         }
 
@@ -92,17 +98,18 @@ class MemberListEditor extends React.Component{
             }
         }
         return (
-            <div>
-                <h1>
+            <div id="member-list-component">
+                <div className="header">
                     <span>Team Members</span>
                     {this.state.usersAssigned.length > 0 && <span className="count">{this.state.usersAssigned.length}</span>}
-                </h1>
-                {!this.state.editMode && <button onClick={this.handleEdit.bind(this)}>EDIT</button>}
-                {this.state.editMode && <button onClick={this.handleDone.bind(this)}>DONE</button>}
+                    {!this.state.editMode && <button onClick={this.handleEdit.bind(this)}>EDIT</button>}
+                    {this.state.editMode && <button onClick={this.handleDone.bind(this)}>DONE</button>}
+                </div>
                 {!this.state.editMode && memberList()}
-                {this.state.editMode && listUsers()}
-                {this.state.editMode && <button onClick={this.addUsers.bind(this)}>ADD</button>}
-                {this.state.editMode && listAssignedUsers()}
+                <div id="container">
+                    {this.state.editMode && listUsers()}
+                    {this.state.editMode && listAssignedUsers()}
+                </div>
             </div>
         );
     }
