@@ -37,6 +37,15 @@
   }
 }
 
+span.count{
+  border-radius: 28px;
+  background: lightblue;
+  color: #fff;
+  padding: 1px 7px;
+  font-size: 21px;
+  margin-left: 20px;
+}
+
 
 ul{
   list-style-type: none;
