@@ -40,9 +40,24 @@
 
 ul{
   list-style-type: none;
+  padding-left: 0;
 }
 
 #users-available{
   width: 40%;
   float: left;
+  height: 200px;
+  display: block;
+  overflow: scroll;
+  border: 1px solid #000;
+}
+
+
+#users-available li{
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+li.selected{
+  background: yellow;
 }

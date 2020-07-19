@@ -1,11 +1,14 @@
 import React from 'react';
 import { default as usersData } from './members.json';
+import UserItem from './UserItem';
 
 class MemberListEditor extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             users: usersData,
+            usersSelected: [],
+            usersAssigned: [],
             editMode: false,
         };
     }
@@ -26,10 +29,17 @@ class MemberListEditor extends React.Component{
         this.setState({editMode: false});
     }
 
+    onSelectUpdate(user){
+        console.log(this);
+        // this.setState((prevState)=>{
+
+        // });
+    }
+
     render(){
         const listUsers = () => {
             const userItems = this.state.users.map((user)=>{
-                return <li key={user["_id"]}>{user.firstName} {user.lastName}</li>
+                return <UserItem key={user["_id"]} user={user} onSelectUpdate={this.onSelectUpdate} />
             });
 
             return <ul id="users-available">{userItems}</ul>;
