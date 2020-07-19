@@ -1,6 +1,7 @@
 import React from 'react';
 import { default as usersData } from './members.json';
 import UserItem from './UserItem';
+import UserListAvailable from './UserListAvailable';
 
 class MemberListEditor extends React.Component{
     constructor(props){
@@ -12,10 +13,6 @@ class MemberListEditor extends React.Component{
             usersAssignedSelected: [],
             editMode: false,
         };
-    }
-
-    componentDidMount(){
-        //console.log(usersData);
     }
 
     handleEdit(){
@@ -46,7 +43,6 @@ class MemberListEditor extends React.Component{
     }
 
     onSelectAssignedUpdate(user){
-        console.log("holi");
         const isUserSelected = this.state.usersAssignedSelected.includes(user);
         if (isUserSelected){
             console.log("Unselecting user...");
@@ -88,24 +84,7 @@ class MemberListEditor extends React.Component{
     }
 
     render(){
-        const listUsers = () => {
-            const userItems = this.state.availableUsers.map((user)=>{
-                return <UserItem key={user["_id"]} user={user} active={this.state.usersSelected.includes(user)} onSelectUpdate={this.onSelectUpdate.bind(this)} />
-            });
-
-            return (<div>
-                    <span>{this.state.usersSelected.length} Users Selected</span>
-                    <span className="count">{this.state.availableUsers.length}</span>
-                    <ul id="users-available">{userItems}</ul>
-                    <button onClick={this.addUsers.bind(this)}>ADD</button>
-                </div>);
-        }
-
         const listAssignedUsers = () => {
-            // const userItems = this.state.usersAssigned.map((user)=>{
-            //     return <li key={user["_id"]}>{user.firstName} {user.lastName}</li>
-            // });
-
             const userItems = this.state.usersAssigned.map((user)=>{
                 return <UserItem key={user["_id"]} user={user} active={this.state.usersAssignedSelected.includes(user)} onSelectUpdate={this.onSelectAssignedUpdate.bind(this)} />
             });
@@ -137,7 +116,7 @@ class MemberListEditor extends React.Component{
                 </div>
                 {!this.state.editMode && memberList()}
                 <div id="container">
-                    {this.state.editMode && listUsers()}
+                    {this.state.editMode && <UserListAvailable users={this.state.availableUsers} selectedUsers={this.state.usersSelected} onSelectUpdate={this.onSelectUpdate.bind(this)} addUsers={this.addUsers.bind(this)} />}
                     {this.state.editMode && listAssignedUsers()}
                 </div>
             </div>
