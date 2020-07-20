@@ -17,7 +17,7 @@ class UserListAssigned extends React.Component{
             <span>{users.length} Users Assigned</span>
             <input type="checkbox" checked={selectAllUsers} onChange={onChangeListCheckbox} />
             <ul id="users-assigned">{userItems}</ul>
-            <button onClick={removeUsers}>REMOVE</button>
+            <button onClick={removeUsers}><i class="fa fa-arrow-left" aria-hidden="true"></i> REMOVE</button>
         </div>);
     }
 }
