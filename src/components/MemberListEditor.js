@@ -135,14 +135,14 @@ class MemberListEditor extends React.Component{
             if (this.state.usersAssigned.length > 0){
                 return <ul>{list}</ul>
             }else{
-                return <p>No users in this list</p>
+                return <p>No users in this list. Click on Edit Button to add members.</p>
             }
         }
         return (
             <div id="member-list-component">
                 <div className="header">
                     <span>Team Members</span>
-                    {this.state.usersAssigned.length > 0 && <span className="count">{this.state.usersAssigned.length}</span>}
+                    {!this.state.editMode && this.state.usersAssigned.length > 0 && <span className="count">{this.state.usersAssigned.length}</span>}
                     {!this.state.editMode && <button onClick={this.handleEdit.bind(this)}>EDIT</button>}
                     {this.state.editMode && <button onClick={this.handleDone.bind(this)}>DONE</button>}
                 </div>

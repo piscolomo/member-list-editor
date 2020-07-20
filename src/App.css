@@ -45,32 +45,47 @@
   padding: 30px;
   position: relative;
   padding-top: 100px;
+  border-radius: 5px;
 }
 
 .header{
-  background: skyblue;
+  background: #F2F4F5;
   margin-bottom: 20px;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 20px 0;
+  padding: 20px 0 20px 30px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  vertical-align: middle;
+  text-align: left;
+  box-sizing: border-box;
 }
 
 .header button{
-  float: right;
+  position: absolute;
   margin-right: 20px;
+  background: #9AECDB;
+  border: none;
+  padding: 7px 13px;
+  right: 0;
+  top: 20px;
+  outline:none;
+}
+
+.header button:hover{
+  cursor: pointer;
 }
 
 span.count{
   border-radius: 28px;
-  background: lightblue;
+  background: #9AECDB;
   color: #fff;
   padding: 1px 7px;
   font-size: 21px;
-  margin-left: 20px;
+  margin-left: 12px;
 }
-
 
 ul{
   list-style-type: none;
@@ -105,6 +120,7 @@ ul{
   padding: 8px 20px;
   background: #9AECDB;
   border: none;
+  outline:none;
 }
 
 #container button:hover{
@@ -124,11 +140,14 @@ ul{
 }
 
 input[type="text"]{
-  width: 95%;
+  width: 100%;
     margin-bottom: 10px;
     padding: 10px 10px 10px 34px;
     position: relative;
     box-sizing: border-box;
+    background: #F2F4F5;
+    border: none;
+    border-radius: 3px;
 }
 
 .search-wrapper{
@@ -138,7 +157,7 @@ input[type="text"]{
 .search-wrapper:before{
   font-family: 'FontAwesome';
   position: absolute;
-  left: 18px;
+  left: 10px;
   content: "\f002";
   z-index: 999;
   top: 7px;
@@ -150,6 +169,11 @@ input[type="text"]{
   padding: 10px 0;
   cursor: pointer;
   border-bottom: 1px solid #bdc3c7;
+  text-align: left;
+}
+
+#users-available li input[type="checkbox"]{
+  margin: 0 10px 0 20px;
 }
 
 li.selected{
@@ -163,10 +187,15 @@ li.selected{
   border: 1px solid #bdc3c7;
   border-radius: 10px;
   font-size: 13px;
+  text-align: left;
 }
 
 #users-assigned li{
   padding: 10px 0;
   cursor: pointer;
   border-bottom: 1px solid #bdc3c7;
+}
+
+#users-assigned li input[type="checkbox"]{
+  margin: 0 10px 0 20px;
 }

@@ -15,7 +15,7 @@ class UserListAvailable extends React.Component{
 
         return (<div>
             <div className="search-wrapper">
-                <input ref={setRef} type="text" placeholder="Find User..." onChange={onSearch}/>
+                <input ref={setRef} type="text" placeholder="Find Available Users..." onChange={onSearch}/>
             </div>
             <span>{selectedUsers.length} Users Selected</span>
             <span className="count">{users.length}</span>
