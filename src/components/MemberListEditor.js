@@ -127,7 +127,10 @@ class MemberListEditor extends React.Component{
     render(){
         const memberList = () => {
             const list = this.state.usersAssigned.map((user)=>{
-                return <li key={user["_id"]}>{user.firstName} {user.lastName}</li>
+                return <li key={user["_id"]}>
+                    <span className="user-name">{user.firstName} {user.lastName}</span>
+                    <span className="user-email">{user.email}</span>
+                </li>
             });
             if (this.state.usersAssigned.length > 0){
                 return <ul>{list}</ul>
