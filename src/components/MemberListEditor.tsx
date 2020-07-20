@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { default as usersData } from './members.json';
 import UserItem from './UserItem';
 import UserListAvailable from './UserListAvailable';
 import UserListAssigned from './UserListAssigned';
 import MemberList from './MemberList';
+import User from "../User";
 
-class MemberListEditor extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            availableUsers: usersData,
-            filtered: [],
-            usersSelected: [],
-            usersAssigned: [],
-            usersAssignedSelected: [],
-            editMode: false,
-            isAllAvailableUsersSelected: false,
-            isAllAssignedUsersSelected: false,
-            valueSearch: ""
-        };
+type State = Readonly<{
+    availableUsers: User[],
+    filtered: User[],
+    usersSelected: User[],
+    usersAssigned: User[],
+    usersAssignedSelected: User[],
+    editMode: boolean,
+    isAllAvailableUsersSelected: boolean,
+    isAllAssignedUsersSelected: boolean,
+    valueSearch: string
+}>
+
+class MemberListEditor extends Component<{}, State>{
+    state: State = {
+        availableUsers: usersData,
+        filtered: [],
+        usersSelected: [],
+        usersAssigned: [],
+        usersAssignedSelected: [],
+        editMode: false,
+        isAllAvailableUsersSelected: false,
+        isAllAssignedUsersSelected: false,
+        valueSearch: ""
     }
 
     handleEdit(){
@@ -29,7 +39,7 @@ class MemberListEditor extends React.Component{
         this.setState({editMode: false, usersSelected: [], isAllAvailableUsersSelected: false, isAllAssignedUsersSelected: false});
     }
 
-    onSelectUpdate(user){
+    onSelectUpdate(user: User){
         const isUserSelected = this.state.usersSelected.includes(user);
         if (isUserSelected){
             this.setState((prevState)=>{
@@ -46,7 +56,7 @@ class MemberListEditor extends React.Component{
         }
     }
 
-    onSelectAssignedUpdate(user){
+    onSelectAssignedUpdate(user: User){
         const isUserSelected = this.state.usersAssignedSelected.includes(user);
         if (isUserSelected){
             this.setState((prevState)=>{
@@ -103,7 +113,7 @@ class MemberListEditor extends React.Component{
             }));
     }
 
-    searchUsers(e) {
+    searchUsers(e: any) {
         this.setState({valueSearch: e.target.value});
         if (e.target.value === ""){
             this.setState({filtered: []});

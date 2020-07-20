@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import UserItem from './UserItem';
+import User from "../User";
 
-class MemberList extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            valueSearch: "",
-            filtered: []
-        }
+export type Props = Readonly<{
+    users: User[];
+}>
+
+type State = Readonly<{
+    valueSearch: string;
+    filtered: User[];
+}>
+
+class MemberList extends Component<Props, State>{
+    state: State = {
+        valueSearch: "",
+        filtered: []
     }
 
-    handleInputChange(e){
+    handleInputChange(e: any){
         this.setState({valueSearch: e.target.value});
 
         if (e.target.value === ""){
