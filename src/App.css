@@ -70,7 +70,7 @@
   border: none;
   padding: 7px 13px;
   right: 0;
-  top: 20px;
+  top: 15px;
   outline:none;
 }
 
@@ -83,7 +83,7 @@ span.count{
   background: #9AECDB;
   color: #fff;
   padding: 1px 7px;
-  font-size: 21px;
+  font-size: 15px;
   margin-left: 12px;
 }
 
@@ -118,12 +118,17 @@ ul{
 #container button{
   width: 60%;
   padding: 8px 20px;
-  background: #9AECDB;
-  border: none;
   outline:none;
+  background: #fff;
+  border: 1px solid #ccc;
 }
 
-#container button:hover{
+#container button.active{
+  background: #9AECDB;
+  border: 1px solid transparent;
+}
+
+#container button.active:hover{
   cursor: pointer;
 }
 

@@ -21,7 +21,7 @@ class UserListAvailable extends React.Component{
             <span className="count">{users.length}</span>
             <input type="checkbox" checked={selectAllUsers} onChange={onChangeListCheckbox} />
             <ul id="users-available">{userItems}</ul>
-            <button onClick={addUsers}>ADD <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+            <button className={`${selectedUsers.length > 0 ? "active" : ""}`} onClick={addUsers}>ADD <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
         </div>);
     }
 }
