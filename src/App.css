@@ -1,3 +1,7 @@
+input[type="checkbox"]:hover{
+  cursor: pointer;
+}
+
 .App {
   text-align: center;
   width: 80%;
@@ -93,15 +97,40 @@ ul{
   padding-left: 0;
 }
 
-#member-list-component > ul{
-  overflow: scroll;
-  max-height: 300px;
-  text-align: left;
+.member-list-wrapper{
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
 }
 
-#member-list-component > ul > li{
-  padding: 10px 0;
+.member-list-wrapper:before{
+  font-family: 'FontAwesome';
+  position: absolute;
+  left: 10px;
+  content: "\f002";
+  z-index: 999;
+  top: 8px;
+  font-size: 18px;
+  color: #95a5a6;
+}
+
+#member-list-component ul#member-list{
+  overflow: scroll;
+  max-height: 400px;
+  text-align: left;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+}
+
+#member-list-component ul#member-list > li{
+  padding: 10px 30px;
   border-bottom: 1px solid #bdc3c7;
+}
+
+#member-list-component ul#member-list li .user-email{
+  display: block;
+    color: #666;
+    font-size: 12px;
 }
 
 #container{

@@ -3,6 +3,7 @@ import { default as usersData } from './members.json';
 import UserItem from './UserItem';
 import UserListAvailable from './UserListAvailable';
 import UserListAssigned from './UserListAssigned';
+import MemberList from './MemberList';
 
 class MemberListEditor extends React.Component{
     constructor(props){
@@ -28,20 +29,18 @@ class MemberListEditor extends React.Component{
     }
 
     handleDone(){
-        this.setState({editMode: false, usersSelected: []});
+        this.setState({editMode: false, usersSelected: [], isAllAvailableUsersSelected: false, isAllAssignedUsersSelected: false});
     }
 
     onSelectUpdate(user){
         const isUserSelected = this.state.usersSelected.includes(user);
         if (isUserSelected){
-            console.log("Unselecting user...");
             this.setState((prevState)=>{
                 return {
                     usersSelected: prevState.usersSelected.filter(userSelected => userSelected["_id"] != user["_id"])
                 }
             })
         }else{
-            console.log("Selecting user...");
             this.setState((prevState)=>{
                 return {
                     usersSelected: prevState.usersSelected.concat(user)
@@ -53,14 +52,12 @@ class MemberListEditor extends React.Component{
     onSelectAssignedUpdate(user){
         const isUserSelected = this.state.usersAssignedSelected.includes(user);
         if (isUserSelected){
-            console.log("Unselecting user...");
             this.setState((prevState)=>{
                 return {
                     usersAssignedSelected: prevState.usersAssignedSelected.filter(userSelected => userSelected["_id"] != user["_id"])
                 }
             })
         }else{
-            console.log("Selecting user...");
             this.setState((prevState)=>{
                 return {
                     usersAssignedSelected: prevState.usersAssignedSelected.concat(user)
@@ -111,9 +108,7 @@ class MemberListEditor extends React.Component{
 
     searchUsers(e) {
         if (e.target.value === ""){
-            this.setState((prevState)=>({
-                filtered: []
-            }));
+            this.setState({filtered: []});
         }else{
             const target = e.target.value.toLowerCase();
             this.setState((prevState)=>({
@@ -125,19 +120,6 @@ class MemberListEditor extends React.Component{
     }
 
     render(){
-        const memberList = () => {
-            const list = this.state.usersAssigned.map((user)=>{
-                return <li key={user["_id"]}>
-                    <span className="user-name">{user.firstName} {user.lastName}</span>
-                    <span className="user-email">{user.email}</span>
-                </li>
-            });
-            if (this.state.usersAssigned.length > 0){
-                return <ul>{list}</ul>
-            }else{
-                return <p>No users in this list. Click on Edit Button to add members.</p>
-            }
-        }
         return (
             <div id="member-list-component">
                 <div className="header">
@@ -146,7 +128,7 @@ class MemberListEditor extends React.Component{
                     {!this.state.editMode && <button onClick={this.handleEdit.bind(this)}>EDIT</button>}
                     {this.state.editMode && <button onClick={this.handleDone.bind(this)}>DONE</button>}
                 </div>
-                {!this.state.editMode && memberList()}
+                {!this.state.editMode && <MemberList users={this.state.usersAssigned} />}
                 {this.state.editMode &&
                     <div id="container">
                         <UserListAvailable users={this.state.filtered.length > 0 ? this.state.filtered: this.state.availableUsers} 

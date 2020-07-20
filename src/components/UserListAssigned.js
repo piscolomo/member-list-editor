@@ -21,7 +21,7 @@ class UserListAssigned extends React.Component{
                 <span className="count">{users.length}</span>
             </div>
             <ul id="users-assigned">{userItems}</ul>
-            <button className={`${selectedUsers.length > 0 ? "active" : ""}`} onClick={removeUsers}><i class="fa fa-arrow-left" aria-hidden="true"></i> REMOVE</button>
+            <button className={`${selectedUsers.length > 0 ? "active" : ""}`} onClick={removeUsers}><i className="fa fa-arrow-left" aria-hidden="true"></i> REMOVE</button>
         </div>);
     }
 }
