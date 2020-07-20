@@ -16,12 +16,9 @@ class MemberListEditor extends React.Component{
             usersAssignedSelected: [],
             editMode: false,
             isAllAvailableUsersSelected: false,
-            isAllAssignedUsersSelected: false
+            isAllAssignedUsersSelected: false,
+            valueSearch: ""
         };
-    }
-
-    setSearchInputRef(input) {
-        this.searchInput = input;
     }
 
     handleEdit(){
@@ -74,10 +71,10 @@ class MemberListEditor extends React.Component{
                 filtered: [],
                 usersSelected: [],
                 usersAssigned: prevState.usersAssigned.concat(prevState.usersSelected),
-                isAllAvailableUsersSelected: false
+                isAllAvailableUsersSelected: false,
+                valueSearch: ""
             }
         });
-        this.searchInput.value = "";
     }
     
     removeUsers(){
@@ -107,6 +104,7 @@ class MemberListEditor extends React.Component{
     }
 
     searchUsers(e) {
+        this.setState({valueSearch: e.target.value});
         if (e.target.value === ""){
             this.setState({filtered: []});
         }else{
@@ -131,14 +129,14 @@ class MemberListEditor extends React.Component{
                 {!this.state.editMode && <MemberList users={this.state.usersAssigned} />}
                 {this.state.editMode &&
                     <div id="container">
-                        <UserListAvailable users={this.state.filtered.length > 0 ? this.state.filtered: this.state.availableUsers} 
+                        <UserListAvailable users={this.state.valueSearch.length > 0 ? this.state.filtered: this.state.availableUsers} 
                             selectedUsers={this.state.usersSelected} 
                             selectAllUsers={this.state.isAllAvailableUsersSelected}
                             onSelectUpdate={this.onSelectUpdate.bind(this)} 
                             addUsers={this.addUsers.bind(this)} 
                             onChangeListCheckbox={this.onChangeListCheckbox.bind(this)}
                             onSearch={this.searchUsers.bind(this)}
-                            setRef={this.setSearchInputRef.bind(this)}
+                            valueSearch={this.state.valueSearch}
                             />
 
                         <UserListAssigned users={this.state.usersAssigned} 

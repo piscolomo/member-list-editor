@@ -7,7 +7,7 @@ class UserListAvailable extends React.Component{
     }
 
     render(){
-        const { users, selectedUsers, selectAllUsers, onSelectUpdate, addUsers, onChangeListCheckbox, onSearch, setRef} = this.props;
+        const { users, selectedUsers, valueSearch, selectAllUsers, onSelectUpdate, addUsers, onChangeListCheckbox, onSearch} = this.props;
         
         const userItems = users.map((user)=>{
             return <UserItem key={user["_id"]} user={user} active={selectedUsers.includes(user)} onSelectUpdate={onSelectUpdate} />
@@ -15,7 +15,7 @@ class UserListAvailable extends React.Component{
 
         return (<div>
             <div className="search-wrapper">
-                <input ref={setRef} type="text" placeholder="Find Available Users..." onChange={onSearch}/>
+                <input type="text" value={valueSearch} placeholder="Find Available Users..." onChange={onSearch}/>
             </div>
             <div className="list-head">
                 <input type="checkbox" checked={selectAllUsers} onChange={onChangeListCheckbox} />
