@@ -14,8 +14,12 @@ class UserListAssigned extends React.Component{
         });
 
         return (<div>
-            <span>{users.length} Users Assigned</span>
-            <input type="checkbox" checked={selectAllUsers} onChange={onChangeListCheckbox} />
+            <div className="list-title"><span>Users Assigned</span></div>
+            <div className="list-head">
+                <input type="checkbox" checked={selectAllUsers} onChange={onChangeListCheckbox} />
+                <span>{selectedUsers.length} Users Selected</span>
+                <span className="count">{users.length}</span>
+            </div>
             <ul id="users-assigned">{userItems}</ul>
             <button className={`${selectedUsers.length > 0 ? "active" : ""}`} onClick={removeUsers}><i class="fa fa-arrow-left" aria-hidden="true"></i> REMOVE</button>
         </div>);
