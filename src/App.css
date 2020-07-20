@@ -50,6 +50,14 @@ input[type="checkbox"]:hover{
   position: relative;
   padding-top: 100px;
   border-radius: 5px;
+  min-height: 200px;
+}
+
+#member-list-component > p{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -25%;
 }
 
 .header{

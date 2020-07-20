@@ -1,7 +1,7 @@
 import React, { StatelessComponent } from 'react';
 import User from "../User";
 
-export type Props = Readonly<{
+type Props = Readonly<{
     user: User,
     active: boolean,
     onSelectUpdate: (user: User) => void

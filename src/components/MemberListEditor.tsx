@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { default as usersData } from './members.json';
-import UserItem from './UserItem';
 import UserListAvailable from './UserListAvailable';
 import UserListAssigned from './UserListAssigned';
 import MemberList from './MemberList';
@@ -31,20 +30,20 @@ class MemberListEditor extends Component<{}, State>{
         valueSearch: ""
     }
 
-    handleEdit(){
+    handleEdit(): void{
         this.setState({editMode: true});
     }
 
-    handleDone(){
+    handleDone(): void{
         this.setState({editMode: false, usersSelected: [], isAllAvailableUsersSelected: false, isAllAssignedUsersSelected: false});
     }
 
-    onSelectUpdate(user: User){
+    onSelectUpdate(user: User): void{
         const isUserSelected = this.state.usersSelected.includes(user);
         if (isUserSelected){
             this.setState((prevState)=>{
                 return {
-                    usersSelected: prevState.usersSelected.filter(userSelected => userSelected["_id"] != user["_id"])
+                    usersSelected: prevState.usersSelected.filter((userSelected: User) => userSelected["_id"] !== user["_id"])
                 }
             })
         }else{
@@ -56,12 +55,12 @@ class MemberListEditor extends Component<{}, State>{
         }
     }
 
-    onSelectAssignedUpdate(user: User){
+    onSelectAssignedUpdate(user: User): void{
         const isUserSelected = this.state.usersAssignedSelected.includes(user);
         if (isUserSelected){
             this.setState((prevState)=>{
                 return {
-                    usersAssignedSelected: prevState.usersAssignedSelected.filter(userSelected => userSelected["_id"] != user["_id"])
+                    usersAssignedSelected: prevState.usersAssignedSelected.filter((userSelected: User) => userSelected["_id"] !== user["_id"])
                 }
             })
         }else{
@@ -73,9 +72,9 @@ class MemberListEditor extends Component<{}, State>{
         }
     }
 
-    addUsers(){
+    addUsers(): void{
         this.setState((prevState)=>{
-            const updatedAvailableUsers = prevState.availableUsers.filter(availableUser => !prevState.usersSelected.includes(availableUser));
+            const updatedAvailableUsers = prevState.availableUsers.filter((availableUser: User) => !prevState.usersSelected.includes(availableUser));
             return {
                 availableUsers: updatedAvailableUsers,
                 filtered: [],
@@ -87,9 +86,9 @@ class MemberListEditor extends Component<{}, State>{
         });
     }
     
-    removeUsers(){
+    removeUsers(): void{
         this.setState((prevState)=>{
-            const updatedAssignedUsers = prevState.usersAssigned.filter(assignedUser => !prevState.usersAssignedSelected.includes(assignedUser));
+            const updatedAssignedUsers = prevState.usersAssigned.filter((assignedUser: User) => !prevState.usersAssignedSelected.includes(assignedUser));
             return {
                 availableUsers: prevState.availableUsers.concat(prevState.usersAssignedSelected),
                 usersAssignedSelected: [],
@@ -99,59 +98,60 @@ class MemberListEditor extends Component<{}, State>{
         })
     }
 
-    onChangeListCheckbox(){
+    onChangeListCheckbox(): void{
         this.setState((prevState)=>({
                 isAllAvailableUsersSelected: !prevState.isAllAvailableUsersSelected,
                 usersSelected: prevState.isAllAvailableUsersSelected ? [] : prevState.availableUsers
             }));
     }
 
-    onChangeAssignedListCheckbox(){
+    onChangeAssignedListCheckbox(): void{
         this.setState((prevState)=>({
                 isAllAssignedUsersSelected: !prevState.isAllAssignedUsersSelected,
                 usersAssignedSelected: prevState.isAllAssignedUsersSelected ? [] : prevState.usersAssigned
             }));
     }
 
-    searchUsers(e: any) {
+    searchUsers(e: React.ChangeEvent<HTMLInputElement>): void{
         this.setState({valueSearch: e.target.value});
         if (e.target.value === ""){
             this.setState({filtered: []});
         }else{
             const target = e.target.value.toLowerCase();
             this.setState((prevState)=>({
-                filtered: prevState.availableUsers.filter(user =>{
+                filtered: prevState.availableUsers.filter((user: User) =>{
                     return `${user.firstName} ${user.lastName}`.toLowerCase().includes(target)
                 })
             }));
         }
     }
 
-    render(){
+    render(): JSX.Element{
+        const { editMode, usersSelected, usersAssigned, availableUsers, usersAssignedSelected, isAllAvailableUsersSelected, isAllAssignedUsersSelected, filtered, valueSearch  } = this.state;
         return (
             <div id="member-list-component">
                 <div className="header">
                     <span>Team Members</span>
-                    {!this.state.editMode && this.state.usersAssigned.length > 0 && <span className="count">{this.state.usersAssigned.length}</span>}
-                    {!this.state.editMode && <button onClick={this.handleEdit.bind(this)}>EDIT</button>}
-                    {this.state.editMode && <button onClick={this.handleDone.bind(this)}>DONE</button>}
+                    {!editMode && usersAssigned.length > 0 && <span className="count">{usersAssigned.length}</span>}
+                    {!editMode && <button onClick={this.handleEdit.bind(this)}>EDIT</button>}
+                    {editMode && <button onClick={this.handleDone.bind(this)}>DONE</button>}
                 </div>
-                {!this.state.editMode && <MemberList users={this.state.usersAssigned} />}
-                {this.state.editMode &&
+                {!editMode && <MemberList users={usersAssigned} />}
+                {editMode &&
                     <div id="container">
-                        <UserListAvailable users={this.state.valueSearch.length > 0 ? this.state.filtered: this.state.availableUsers} 
-                            selectedUsers={this.state.usersSelected} 
-                            selectAllUsers={this.state.isAllAvailableUsersSelected}
+                        <UserListAvailable users={valueSearch.length > 0 ? filtered: availableUsers} 
+                            selectedUsers={usersSelected} 
+                            selectAllUsers={isAllAvailableUsersSelected}
                             onSelectUpdate={this.onSelectUpdate.bind(this)} 
                             addUsers={this.addUsers.bind(this)} 
                             onChangeListCheckbox={this.onChangeListCheckbox.bind(this)}
                             onSearch={this.searchUsers.bind(this)}
-                            valueSearch={this.state.valueSearch}
+                            valueSearch={valueSearch}
                             />
 
-                        <UserListAssigned users={this.state.usersAssigned} 
-                            selectedUsers={this.state.usersAssignedSelected} 
-                            selectAllUsers={this.state.isAllAssignedUsersSelected}
+                        <UserListAssigned users={usersAssigned} 
+                            selectedUsers={usersAssignedSelected} 
+                            selectAllUsers={isAllAssignedUsersSelected}
                             onSelectUpdate={this.onSelectAssignedUpdate.bind(this)} 
                             removeUsers={this.removeUsers.bind(this)} 
                             onChangeListCheckbox={this.onChangeAssignedListCheckbox.bind(this)}/>

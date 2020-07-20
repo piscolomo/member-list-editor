@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import UserItem from './UserItem';
 import User from "../User";
 
-export type Props = Readonly<{
+type Props = Readonly<{
     users: User[];
 }>
 
@@ -17,7 +16,7 @@ class MemberList extends Component<Props, State>{
         filtered: []
     }
 
-    handleInputChange(e: any){
+    handleInputChange(e: React.ChangeEvent<HTMLInputElement>): void{
         this.setState({valueSearch: e.target.value});
 
         if (e.target.value === ""){
@@ -25,29 +24,28 @@ class MemberList extends Component<Props, State>{
         }else{
             const target = e.target.value.toLowerCase();
             this.setState({
-                filtered: this.props.users.filter(user =>{
+                filtered: this.props.users.filter((user: User) =>{
                     return `${user.firstName} ${user.lastName}`.toLowerCase().includes(target)
                 })
             });
         }
     }
 
-    render(){
-        let users = this.props.users;
-        if (this.state.valueSearch.length > 0){
-            users = this.state.filtered;
-        }
-        const list = users.map((user)=>{
-            return <li key={user["_id"]}>
-                <span className="user-name">{user.firstName} {user.lastName}</span>
-                <span className="user-email">{user.email}</span>
-            </li>
-        });
+    render(): JSX.Element{
+        const { valueSearch, filtered } = this.state;
+        let users = valueSearch.length > 0 ? filtered : this.props.users;
 
         if (this.props.users.length > 0){
             return <div className="member-list-wrapper">
                     <input type="text" placeholder="Find User member" onChange={this.handleInputChange.bind(this)} />
-                    {users.length > 0 && <ul id="member-list">{list}</ul>}
+                    {users.length > 0 && <ul id="member-list">{
+                        users.map((user: User)=>(
+                            <li key={user["_id"]}>
+                                <span className="user-name">{user.firstName} {user.lastName}</span>
+                                <span className="user-email">{user.email}</span>
+                            </li>
+                        ))
+                    }</ul>}
                 </div>
         }else{
             return <p>No users in this list. Click on Edit Button to add members.</p>
