@@ -94,7 +94,7 @@ input[type="checkbox"]:hover{
 span.count{
   border-radius: 28px;
   background: #9AECDB;
-  color: #fff;
+  color: #111;
   padding: 1px 7px;
   font-size: 15px;
   margin-left: 12px;
