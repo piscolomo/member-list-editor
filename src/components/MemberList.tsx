@@ -37,7 +37,7 @@ class MemberList extends Component<Props, State>{
 
         if (this.props.users.length > 0){
             return <div className="member-list-wrapper">
-                    <input type="text" placeholder="Find User member" onChange={this.handleInputChange.bind(this)} />
+                    <input type="text" className="search-assigned" placeholder="Find User member" onChange={this.handleInputChange.bind(this)} />
                     {users.length > 0 && <ul id="member-list">{
                         users.map((user: User)=>(
                             <li key={user["_id"]}>

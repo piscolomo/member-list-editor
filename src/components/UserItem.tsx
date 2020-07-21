@@ -8,7 +8,7 @@ type Props = Readonly<{
 }>
 
 const UserItem: StatelessComponent<Props> = ({user, active, onSelectUpdate}) => (
-    <li className={`${active ? "selected" : ""}`} onClick={() => onSelectUpdate(user)}>
+    <li className={`${active ? "user-item selected" : "user-item"}`} onClick={() => onSelectUpdate(user)}>
         <input readOnly type="checkbox" checked={active} />
         {user.firstName} {user.lastName}
     </li>

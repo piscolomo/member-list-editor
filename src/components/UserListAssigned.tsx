@@ -15,14 +15,14 @@ const UserListAssigned: StatelessComponent<Props> = ({users, selectedUsers, sele
     <div>
         <div className="list-title"><span>Users Assigned</span></div>
         <div className="list-head">
-            <input type="checkbox" checked={selectAllUsers} onChange={onChangeListCheckbox} />
+            <input className="select-all-assigned-users" type="checkbox" checked={selectAllUsers} onChange={onChangeListCheckbox} />
             <span>{selectedUsers.length} Users Selected</span>
             <span className="count">{users.length}</span>
         </div>
         <ul id="users-assigned">{users.map((user: User)=>(
             <UserItem key={user["_id"]} user={user} active={selectedUsers.includes(user)} onSelectUpdate={onSelectUpdate} />
         ))}</ul>
-        <button className={`${selectedUsers.length > 0 ? "active" : ""}`} onClick={removeUsers}><i className="fa fa-arrow-left" aria-hidden="true"></i> REMOVE</button>
+        <button className={`${selectedUsers.length > 0 ? "remove-user active" : "remove-user"}`} onClick={removeUsers}><i className="fa fa-arrow-left" aria-hidden="true"></i> REMOVE</button>
     </div>
 );
 

@@ -16,10 +16,10 @@ type Props = Readonly<{
 const UserListAvailable: StatelessComponent<Props> = ({users, selectedUsers, valueSearch, selectAllUsers, onSelectUpdate, addUsers, onChangeListCheckbox, onSearch}) => {    
     return (<div>
         <div className="search-wrapper">
-            <input type="text" value={valueSearch} placeholder="Find Available Users..." onChange={onSearch}/>
+            <input className="search-available" type="text" value={valueSearch} placeholder="Find Available Users..." onChange={onSearch}/>
         </div>
         <div className="list-head">
-            <input type="checkbox" checked={selectAllUsers} onChange={onChangeListCheckbox} />
+            <input className="select-all-available-users" type="checkbox" checked={selectAllUsers} onChange={onChangeListCheckbox} />
             <span>{selectedUsers.length} Users Selected</span>
             <span className="count">{users.length}</span>
         </div>
@@ -28,7 +28,7 @@ const UserListAvailable: StatelessComponent<Props> = ({users, selectedUsers, val
                 <UserItem key={user["_id"]} user={user} active={selectedUsers.includes(user)} onSelectUpdate={onSelectUpdate} />
             ))}
         </ul>
-        <button className={`${selectedUsers.length > 0 ? "active" : ""}`} onClick={addUsers}>ADD <i className="fa fa-arrow-right" aria-hidden="true"></i></button>
+        <button className={`${selectedUsers.length > 0 ? "add-user active" : "add-user"}`} onClick={addUsers}>ADD <i className="fa fa-arrow-right" aria-hidden="true"></i></button>
     </div>);
 }
 

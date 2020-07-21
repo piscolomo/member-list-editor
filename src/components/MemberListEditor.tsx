@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { default as usersData } from './members.json';
 import UserListAvailable from './UserListAvailable';
 import UserListAssigned from './UserListAssigned';
 import MemberList from './MemberList';
 import User from "../User";
+
+type Props = Readonly<{
+    users: User[];
+}>
 
 type State = Readonly<{
     availableUsers: User[],
@@ -17,9 +20,9 @@ type State = Readonly<{
     valueSearch: string
 }>
 
-class MemberListEditor extends Component<{}, State>{
+class MemberListEditor extends Component<Props, State>{
     state: State = {
-        availableUsers: usersData,
+        availableUsers: this.props.users,
         filtered: [],
         usersSelected: [],
         usersAssigned: [],
@@ -133,8 +136,8 @@ class MemberListEditor extends Component<{}, State>{
                 <div className="header">
                     <span>Team Members</span>
                     {!editMode && usersAssigned.length > 0 && <span className="count">{usersAssigned.length}</span>}
-                    {!editMode && <button onClick={this.handleEdit.bind(this)}>EDIT</button>}
-                    {editMode && <button onClick={this.handleDone.bind(this)}>DONE</button>}
+                    {!editMode && <button className="edit-button" onClick={this.handleEdit.bind(this)}>EDIT</button>}
+                    {editMode && <button className="done-button" onClick={this.handleDone.bind(this)}>DONE</button>}
                 </div>
                 {!editMode && <MemberList users={usersAssigned} />}
                 {editMode &&
